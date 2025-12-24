@@ -6,16 +6,12 @@ import torch
 @st.cache_resource
 def load_model_and_tokenizer():
     try:
-        # Use a pipeline as a high-level helper
-        from transformers import pipeline
-        pipe = pipeline("text-classification", model="ShinyQ/indobert-sentiment-analysis-indonesian-university-reviews")
-
         # Try to load fine-tuned model first
         from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
-        tokenizer = AutoTokenizer.from_pretrained("ShinyQ/indobert-sentiment-analysis-indonesian-university-reviews")
+        tokenizer = AutoTokenizer.from_pretrained("indobenchmark/indobert-base-p1")
         model = AutoModelForSequenceClassification.from_pretrained(
-            "ShinyQ/indobert-sentiment-analysis-indonesian-university-reviews")
+            "indobenchmark/indobert-base-p1")
 
         # Try to load label mapping
         try:
