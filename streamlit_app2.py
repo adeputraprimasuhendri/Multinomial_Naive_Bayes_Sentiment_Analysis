@@ -7,14 +7,21 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 @st.cache_resource
 def load_model_and_tokenizer():
     try:
-        model = AutoModelForSequenceClassification.from_pretrained("indobenchmark/indobert-base-p1")
-        tokenizer = AutoTokenizer.from_pretrained("indobenchmark/indobert-base-p1")
+        # Try to load fine-tuned model first
+        model = AutoModelForSequenceClassification.from_pretrained("./indobert_sentiment_model")
+        tokenizer = AutoTokenizer.from_pretrained("./indobert_sentiment_model")
 
-        # Load label mapping
-        with open('label_map.pkl', 'rb') as f:
-            label_maps = pickle.load(f)
+        # Try to load label mapping
+        try:
+            with open('label_map.pkl', 'rb') as f:
+                label_maps = pickle.load(f)
+                label_map_reverse = label_maps['label_map_reverse']
+        except:
+            # Default label mapping if file doesn't exist
+            label_map_reverse = {0: 'negative', 1: 'neutral', 2: 'positive'}
+            st.warning("Using default label mapping. Run app2.py to create custom mapping.")
 
-        return model, tokenizer, label_maps['label_map_reverse']
+        return model, tokenizer, label_map_reverse
     except Exception as e:
         st.error(f"Error loading model: {e}")
         st.info("Please run app2.py first to train and save the IndoBERT model.")
@@ -28,7 +35,14 @@ def predict_sentiment(text, model, tokenizer, label_map_reverse):
         outputs = model(**inputs)
         logits = outputs.logits
         predicted_class = torch.argmax(logits, dim=1).item()
-        predicted_label = label_map_reverse[predicted_class]
+
+        # Get label with fallback
+        if predicted_class in label_map_reverse:
+            predicted_label = label_map_reverse[predicted_class]
+        else:
+            # Fallback mapping
+            fallback_map = {0: 'negative', 1: 'neutral', 2: 'positive'}
+            predicted_label = fallback_map.get(predicted_class, 'unknown')
 
         # Get confidence scores
         probabilities = torch.nn.functional.softmax(logits, dim=1)[0]
