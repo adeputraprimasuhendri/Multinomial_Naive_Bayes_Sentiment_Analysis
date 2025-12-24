@@ -3,3 +3,7 @@ scikit-learn
 Sastrawi
 nltk
 streamlit
+torch
+transformers
+datasets
+accelerate
