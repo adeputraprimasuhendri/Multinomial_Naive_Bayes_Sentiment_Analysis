@@ -8,8 +8,8 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 def load_model_and_tokenizer():
     try:
         # Try to load fine-tuned model first
-        model = AutoModelForSequenceClassification.from_pretrained("./indobert_sentiment_model")
-        tokenizer = AutoTokenizer.from_pretrained("./indobert_sentiment_model")
+        model = AutoModelForSequenceClassification.from_pretrained("ShinyQ/indobert-sentiment-analysis-indonesian-university-reviews")
+        tokenizer = AutoTokenizer.from_pretrained("ShinyQ/indobert-sentiment-analysis-indonesian-university-reviews")
 
         # Try to load label mapping
         try:
