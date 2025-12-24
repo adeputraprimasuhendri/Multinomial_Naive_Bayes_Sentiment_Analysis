@@ -7,8 +7,8 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 @st.cache_resource
 def load_model_and_tokenizer():
     try:
-        model = AutoModelForSequenceClassification.from_pretrained("https://appsworkspace.oss-ap-southeast-5.aliyuncs.com/indobert_sentiment_model")
-        tokenizer = AutoTokenizer.from_pretrained("https://appsworkspace.oss-ap-southeast-5.aliyuncs.com/indobert_sentiment_model")
+        model = AutoModelForSequenceClassification.from_pretrained("indobenchmark/indobert-base-p1")
+        tokenizer = AutoTokenizer.from_pretrained("indobenchmark/indobert-base-p1")
 
         # Load label mapping
         with open('label_map.pkl', 'rb') as f:
