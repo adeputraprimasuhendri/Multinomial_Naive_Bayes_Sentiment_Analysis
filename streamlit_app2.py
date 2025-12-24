@@ -9,9 +9,9 @@ def load_model_and_tokenizer():
         # Try to load fine-tuned model first
         from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
-        tokenizer = AutoTokenizer.from_pretrained("indobenchmark/indobert-base-p1")
+        tokenizer = AutoTokenizer.from_pretrained("indobenchmark/indobert-lite-large-p2")
         model = AutoModelForSequenceClassification.from_pretrained(
-            "indobenchmark/indobert-base-p1")
+            "indobenchmark/indobert-lite-large-p2")
 
         # Try to load label mapping
         try:
