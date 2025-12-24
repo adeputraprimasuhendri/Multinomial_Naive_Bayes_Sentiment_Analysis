@@ -1,15 +1,21 @@
 import streamlit as st
 import pickle
 import torch
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 # Load model and tokenizer
 @st.cache_resource
 def load_model_and_tokenizer():
     try:
+        # Use a pipeline as a high-level helper
+        from transformers import pipeline
+        pipe = pipeline("text-classification", model="ShinyQ/indobert-sentiment-analysis-indonesian-university-reviews")
+
         # Try to load fine-tuned model first
-        model = AutoModelForSequenceClassification.from_pretrained("indobenchmark/indobert-base-p1")
-        tokenizer = AutoTokenizer.from_pretrained("indobenchmark/indobert-base-p1")
+        from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
+        tokenizer = AutoTokenizer.from_pretrained("ShinyQ/indobert-sentiment-analysis-indonesian-university-reviews")
+        model = AutoModelForSequenceClassification.from_pretrained(
+            "ShinyQ/indobert-sentiment-analysis-indonesian-university-reviews")
 
         # Try to load label mapping
         try:
