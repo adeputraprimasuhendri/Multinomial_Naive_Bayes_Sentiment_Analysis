@@ -58,8 +58,7 @@ model, tokenizer, label_map_reverse = load_model_and_tokenizer()
 # Streamlit UI
 st.title("Sentiment Analysis App (IndoBERT)")
 st.write(
-    """
-    Aplikasi ini menggunakan model **IndoBERT** (BERT yang dilatih pada bahasa Indonesia)
+    """Aplikasi ini menggunakan model **IndoBERT** (BERT yang dilatih pada bahasa Indonesia)
     untuk memprediksi sentimen (positif, negatif, atau netral).
 
     **Model Details:**
@@ -114,23 +113,6 @@ if st.button("Prediksi", type="primary"):
                     st.metric("Positive", f"{probabilities[2].item()*100:.2f}%")
     else:
         st.warning("Silakan masukkan teks untuk dianalisis.")
-
-# Sidebar information
-st.sidebar.title("About IndoBERT")
-st.sidebar.info(
-    """
-    **IndoBERT** adalah model BERT yang telah dilatih khusus pada teks bahasa Indonesia.
-
-    Model ini menggunakan arsitektur Transformer yang dapat memahami konteks
-    kalimat dengan lebih baik dibandingkan metode tradisional.
-
-    **Keunggulan:**
-    - Pemahaman konteks yang lebih baik
-    - Akurasi lebih tinggi
-    - Pre-trained pada bahasa Indonesia
-    - State-of-the-art performance
-    """
-)
 
 st.sidebar.title("Contoh Text")
 st.sidebar.write("**Positive:**")
