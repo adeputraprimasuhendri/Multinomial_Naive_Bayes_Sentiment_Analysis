@@ -124,6 +124,3 @@ st.sidebar.text("Benci banget kuliah onlen\nsangat membosankan")
 st.sidebar.write("**Neutral:**")
 st.sidebar.text("Bangun pagi kuliah onlen\nseperti biasa")
 
-# Footer
-st.sidebar.markdown("---")
-st.sidebar.caption("Powered by IndoBERT 🤖")
